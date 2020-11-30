@@ -27,7 +27,7 @@
     "add-bootnode": "Добавить bootnode",
     "add-contact": "Добавить контакт",
     "add-custom-token": "Добавить пользовательский токен",
-    "add-mailserver": "Добавить почтовый сервер",
+    "add-mailserver": "Добавить ноду истории",
     "add-members": "Добавить участников",
     "add-network": "Добавить сеть",
     "add-new-contact": "Добавить новый контакт",
@@ -339,11 +339,11 @@
         "other": "дней"
     },
     "datetime-day-short": {
-        "zero": "Д",
-        "one": "Д",
-        "few": "Д",
-        "many": "Д",
-        "other": "Д"
+        "zero": "ноль",
+        "one": "один",
+        "few": "несколько",
+        "many": "много",
+        "other": "другой"
     },
     "datetime-hour": {
         "zero": "часов",
@@ -353,11 +353,11 @@
         "other": "часов"
     },
     "datetime-hour-short": {
-        "zero": "Ч",
-        "one": "Ч",
-        "few": "Ч",
-        "many": "Ч",
-        "other": "Ч"
+        "zero": "ноль",
+        "one": "один",
+        "few": "несколько",
+        "many": "много",
+        "other": "другой"
     },
     "datetime-minute": {
         "zero": "минут",
@@ -367,11 +367,11 @@
         "other": "минуты"
     },
     "datetime-minute-short": {
-        "zero": "М",
-        "one": "М",
-        "few": "М",
-        "many": "М",
-        "other": "М"
+        "zero": "ноль",
+        "one": "один",
+        "few": "несколько",
+        "many": "много",
+        "other": "другой"
     },
     "datetime-second": {
         "zero": "секунд",
@@ -381,11 +381,11 @@
         "other": "секунды"
     },
     "datetime-second-short": {
-        "zero": "С",
-        "one": "С",
-        "few": "С",
-        "many": "С",
-        "other": "С"
+        "zero": "ноль",
+        "one": "один",
+        "few": "несколько",
+        "many": "много",
+        "other": "другой"
     },
     "datetime-today": "сегодня",
     "datetime-yesterday": "вчера",
@@ -403,9 +403,9 @@
     "delete-chat": "Удалить чат",
     "delete-chat-confirmation": "Вы уверены, что хотите удалить этот чат?",
     "delete-confirmation": "Удалить?",
-    "delete-mailserver": "Удалить почтовый сервер",
-    "delete-mailserver-are-you-sure": "Вы действительно хотите удалить этот mailserver?",
-    "delete-mailserver-title": "Удалить mailserver",
+    "delete-mailserver": "Удалить ноду истории",
+    "delete-mailserver-are-you-sure": "Вы действительно хотите удалить эту ноду истории?",
+    "delete-mailserver-title": "Удалить ноду истории",
     "delete-message": "Удалить сообщение",
     "delete-my-account": "Удалить мой аккаунт",
     "delete-my-profile": "Удалить мой профиль",
@@ -783,23 +783,23 @@
     "looking-for-cards": "Ищем карту...",
     "lost-connection": "Соединение прервано",
     "mail-should-be-configured": "Необходимо настроить почтовый клиент",
-    "mailserver-address": "Адрес mailserver",
+    "mailserver-address": "Адрес ноды истории",
     "mailserver-automatic": "Автоматический выбор",
     "mailserver-automatic-switch-explanation": "Выберите самый быстрый доступный узел истории",
-    "mailserver-connection-error": "Не удалось подключиться к mailserver",
+    "mailserver-connection-error": "Не удалось подключиться к ноде истории",
     "mailserver-content": "Нода в сети Status отвечает за маршрутизацию и хранение сообщений сроком до 30 дней.",
-    "mailserver-details": "Сведения о mailserver",
-    "mailserver-error-content": "Не удалось связаться с выбранным вами mailserver.",
-    "mailserver-error-title": "Ошибка подключения к mailserver",
+    "mailserver-details": "Сведения о ноде истории",
+    "mailserver-error-content": "Выбранная вами нода истории не доступна.",
+    "mailserver-error-title": "Ошибка подключения к ноде истории",
     "mailserver-format": "enode:\/\/{enode-id}:{password}@{ip-address}:{port}",
-    "mailserver-pick-another": "Выберите другой mailserver",
+    "mailserver-pick-another": "Выберите другую ноду истории",
     "mailserver-reconnect": "Не удалось подключиться к почтовому серверу. Нажмите, чтобы переподключиться.",
-    "mailserver-request-error-content": "Следующая ошибка была возвращена mailserver: {{error}}",
+    "mailserver-request-error-content": "Следующая ошибка была возвращена нодой истории: {{error}}",
     "mailserver-request-error-status": "При получении истории произошла ошибка, проверьте подробности в журналах",
-    "mailserver-request-error-title": "Ошибка запроса mailserver",
+    "mailserver-request-error-title": "Ошибка запроса ноды истории",
     "mailserver-request-retry": "Повторить запрос",
     "mailserver-retry": "Повторить",
-    "mailserver-title": "Почтовый сервер",
+    "mailserver-title": "Нода истории",
     "main-currency": "Основная валюта",
     "main-networks": "Основные сети",
     "main-wallet": "Основной кошелек",
@@ -918,8 +918,6 @@
     "off": "Выкл",
     "off-status-tree": "Вне дерева ключей Status",
     "offline": "Не в сети",
-    "offline-messaging": "Mailserver",
-    "offline-messaging-settings": "Узлы истории",
     "offline-messaging-use-history-explanation": "Включите узлы истории для получения сообщений, которые отправляются вам при закрытом приложении. Если эта функция включена, узел истории будет получать ваш IP-адрес. Если эта функция отключена, вы не сможете получать сообщения, когда приложение закрыто и не получите их при последующем открытии приложения.",
     "offline-messaging-use-history-nodes": "Использование узлов истории",
     "ok": "Хорошо",

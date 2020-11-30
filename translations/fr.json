@@ -882,8 +882,6 @@
     "off": "Désactivé",
     "off-status-tree": "Arbre Status désactivé",
     "offline": "Hors ligne",
-    "offline-messaging": "Serveur de messagerie",
-    "offline-messaging-settings": "Nœuds d'historiques",
     "offline-messaging-use-history-explanation": "Activez les nœuds d'historique pour récupérer les messages envoyés quand l'application était fermée. Lorsqu'il est activé, un nœud d'historique obtient votre adresse IP. Lorsqu'il est désactivé, vous ne recevrez pas de messages si l'application est fermée et vous ne les verrez pas lors de l'ouverture ultérieure de l'application.",
     "offline-messaging-use-history-nodes": "Utiliser les nœuds d'historique",
     "ok": "OK",

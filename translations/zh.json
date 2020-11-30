@@ -870,8 +870,6 @@
     "off": "关闭",
     "off-status-tree": "不在Status树上",
     "offline": "离线",
-    "offline-messaging": "邮件服务器",
-    "offline-messaging-settings": "历史记录节点",
     "offline-messaging-use-history-explanation": "启用历史记录节点以提取应用程序离线期间发送的消息。启用后，历史记录节点将获取您的IP地址。禁用后，应用程序离线时您将不会收到消息，并且在以后应用程序上线时您也不会看到消息。",
     "offline-messaging-use-history-nodes": "使用历史记录节点",
     "ok": "确定",

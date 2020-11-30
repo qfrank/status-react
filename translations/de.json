@@ -851,7 +851,6 @@
     "off": "Aus",
     "off-status-tree": "Nicht mit Status verbunden",
     "offline": "Offline",
-    "offline-messaging": "Mailserver",
     "offline-messaging-use-history-explanation": "Aktivieren Sie Verlaufsknoten, um Nachrichten abzurufen, die gesendet wurden, während die Anwendung geschlossen war. Wenn aktiviert, erhält ein Verlaufsknoten Ihre IP-Adresse. Wenn deaktiviert, erhalten Sie keine Nachrichten, wenn die Anwendung geschlossen wird, und sehen sie auch nicht, wenn Sie die Anwendung später öffnen.",
     "offline-messaging-use-history-nodes": "Verlaufsknoten verwenden",
     "ok": "OK",

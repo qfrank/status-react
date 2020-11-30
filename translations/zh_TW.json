@@ -870,8 +870,6 @@
     "off": "關",
     "off-status-tree": "關閉\"Status\"",
     "offline": "離線",
-    "offline-messaging": "郵件伺服器",
-    "offline-messaging-settings": "歷史紀錄節點",
     "offline-messaging-use-history-explanation": "啟用歷史記錄節點以存取應用程式關閉時傳送的訊息。啟用時，歷史記錄節點將獲取您的IP地址。禁用後，您將不會在關閉應用程式時收到訊息，並且往後打開應用程式時也不會看到訊息。",
     "offline-messaging-use-history-nodes": "使用歷史記錄節點",
     "ok": "確定",

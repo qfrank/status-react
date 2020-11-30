@@ -882,8 +882,6 @@
     "off": "Desativado",
     "off-status-tree": "Fora da árvore da Status",
     "offline": "Offline",
-    "offline-messaging": "Servidor de correio",
-    "offline-messaging-settings": "Nós de histórico",
     "offline-messaging-use-history-explanation": "Ative os nós de histórico para buscar mensagens enviadas enquanto o aplicativo está fechado. Quando ativado, um nó de histórico obtém seu endereço IP. Quando desativado, você não receberá mensagens quando o aplicativo for fechado e não as verá quando abrir o aplicativo mais tarde.",
     "offline-messaging-use-history-nodes": "Usar nós de histórico",
     "ok": "OK",

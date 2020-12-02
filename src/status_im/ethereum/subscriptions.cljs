@@ -4,7 +4,8 @@
             [status-im.wallet.core :as wallet.core]
             [status-im.ethereum.transactions.core :as transactions]
             [status-im.utils.fx :as fx]
-            [taoensso.timbre :as log]))
+            [taoensso.timbre :as log]
+            [status-im.i18n :as i18n]))
 
 (fx/defn handle-signal
   [cofx {:keys [subscription_id data] :as event}]
@@ -90,6 +91,17 @@
      :historical?  true}}
    (wallet.core/restart-wallet-service-default)))
 
+(fx/defn fetching-error
+  [{:keys [db] :as cofx} {:keys [message]}]
+  (fx/merge
+   cofx
+   {:db               (dissoc db
+                              :wallet/waiting-for-recent-history?
+                              :wallet/refreshing-history?)
+    :utils/show-popup {:title   (i18n/label :t/tx-history-failure)
+                       :content message}}
+   (wallet.core/stop-wallet)))
+
 (fx/defn new-wallet-event
   [cofx {:keys [type blockNumber accounts newTransactions] :as event}]
   (log/debug "[wallet-subs] new-wallet-event"
@@ -101,4 +113,5 @@
     "reorg" (reorg cofx event)
     "recent-history-fetching" (recent-history-fetching-started cofx accounts)
     "recent-history-ready" (recent-history-fetching-ended cofx event)
+    "fetching-history-error" (fetching-error cofx event)
     (log/warn ::unknown-wallet-event :type type :event event)))

@@ -1331,5 +1331,6 @@
     "default-assets": "Default ERC20 and ERC721",
     "increase-gas": "Increase Gas",
     "cancelling": "Cancelling",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "tx-history-failure": "Transactions history fetching failure"
 }

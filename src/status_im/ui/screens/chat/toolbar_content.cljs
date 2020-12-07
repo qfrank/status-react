@@ -3,8 +3,7 @@
             [status-im.ui.components.chat-icon.screen :as chat-icon.screen]
             [status-im.ui.components.react :as react]
             [status-im.ui.screens.chat.styles.main :as st]
-            [re-frame.core :as re-frame])
-  (:require-macros [status-im.utils.views :refer [defview letsubs]]))
+            [re-frame.core :as re-frame]))
 
 (defn- group-last-activity [{:keys [contacts public?]}]
   [react/view {:flex-direction :row}

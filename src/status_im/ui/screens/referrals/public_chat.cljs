@@ -49,18 +49,14 @@
                   @(re-frame/subscribe [::gateway/network-status]))
         messages [{:content [{:type  :text
                               :value "👋"}]}
-                  {:content [{:type  :author
-                              :value (i18n/label :t/invite-chat-name)}
-                             {:type  :text
-                              :value (i18n/label :t/invite-chat-intro)}
+                  {:content [{:type  :text
+                              :value (i18n/label :t/invite-public-chat-intro)}
                              {:type :pack}
                              {:type  :button
                               :value [quo/button {:type     :secondary
                                                   :loading  loading
                                                   :on-press #(re-frame/dispatch [::chat.acquisition/accept-pack])}
                                       (i18n/label :t/invite-chat-accept-join)]}]}
-                  {:content [{:type  :text
-                              :value (i18n/label :t/invite-chat-rule)}]}
                   {:content [{:type  :text
                               :value [:<>
                                       (i18n/label :t/invite-privacy-policy-public) " "
@@ -106,3 +102,4 @@
       (if rewardable
         [reward-messages]
         [non-reward])]]))
+

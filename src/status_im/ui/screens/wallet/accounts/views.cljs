@@ -4,6 +4,8 @@
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
             [status-im.i18n :as i18n]
+            [status-im.ui.screens.wallet.events :as wallet.events]
+            [status-im.ui.components.buy-crypto :as buy-crypto]
             [status-im.ui.components.chat-icon.screen :as chat-icon]
             [status-im.ui.components.colors :as colors]
             [status-im.ui.components.icons.vector-icons :as icons]
@@ -191,6 +193,16 @@
         [quo/text {:color :secondary}
          (i18n/label :t/wallet-total-value)]])]))
 
+(defn buy-crypto []
+  (let [empty-balances    @(re-frame/subscribe [:empty-balances?])
+        buy-crypto-hidden @(re-frame/subscribe [:wallet/buy-crypto-hidden])]
+    (when (and empty-balances
+               (not buy-crypto-hidden))
+      [react/view {:style {:padding-horizontal 8
+                           :padding-top        24}}
+       [buy-crypto/banner {:on-open  println
+                           :on-close #(re-frame/dispatch [::wallet.events/hide-buy-crypto])}]])))
+
 (defn accounts-overview []
   (fn []
     (let [mnemonic @(re-frame/subscribe [:mnemonic])]
@@ -209,5 +221,6 @@
                               :accessibility-label :accounts-more-options}]}
         [accounts]
         [assets]
+        [buy-crypto]
         [react/view {:height 68}]]
        [send-button]])))

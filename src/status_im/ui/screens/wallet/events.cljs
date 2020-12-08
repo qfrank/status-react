@@ -18,3 +18,9 @@
  ::wallet-add-custom-token
  (fn [{:keys [db]}]
    {:db (dissoc db :wallet/custom-token-screen)}))
+
+(fx/defn hide-buy-crypto
+  {:events [::hide-buy-crypto]}
+  [{:keys [db]}]
+  ;; TODO: Think where to persist this preference
+  {:db (assoc db :wallet/buy-crypto-hidden true)})

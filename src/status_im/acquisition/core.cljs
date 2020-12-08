@@ -95,7 +95,7 @@
                 (fn [_]
                   {::persistence/check-tx-state (fn [tx]
                                                   (when-not (nil? tx)
-                                                    (re-frame/dispatch [::claim/add-tx-watcher tx])))})))))
+                                                    (re-frame/dispatch [::claim/check-transaction-receipt tx])))})))))
 
 (re-frame/reg-fx
  ::resolve-contract

@@ -600,6 +600,7 @@
     "invite-chat-intro": "You were referred by a friend to join Status. Here’s some crypto to get you started! Use it to register an ENS name or buy a sticker pack",
     "invite-public-chat-intro": "Here’s some crypto to get you started! Use it to register an ENS name or buy a sticker pack",
     "invite-chat-accept": "Accept",
+    "invite-chat-pending": "Pending",
     "invite-chat-accept-join": "Accept and Join",
     "invite-chat-rule": "Accepting will also reward your friend with a crypto referral bonus",
     "redeem-now": "Redeem now",

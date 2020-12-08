@@ -47,6 +47,7 @@
   (let [loading  (#{(get gateway/network-statuses :initiated)
                     (get gateway/network-statuses :in-flight)}
                   @(re-frame/subscribe [::gateway/network-status]))
+        pending  @(re-frame/subscribe [::invite/pending-reward])
         messages [{:content [{:type  :text
                               :value "👋"}]}
                   {:content [{:type  :text
@@ -55,8 +56,11 @@
                              {:type  :button
                               :value [quo/button {:type     :secondary
                                                   :loading  loading
+                                                  :disabled pending
                                                   :on-press #(re-frame/dispatch [::chat.acquisition/accept-pack])}
-                                      (i18n/label :t/invite-chat-accept-join)]}]}
+                                      (if pending
+                                        (i18n/label :t/invite-chat-pending)
+                                        (i18n/label :t/invite-chat-accept-join))]}]}
                   {:content [{:type  :text
                               :value [:<>
                                       (i18n/label :t/invite-privacy-policy-public) " "

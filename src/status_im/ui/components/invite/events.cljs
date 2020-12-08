@@ -46,7 +46,7 @@
                                     :on-success [::share-link]}))
 
 (re-frame/reg-sub
- ::pending-chat-invite
+ ::has-chat-invite
  :<- [:chats/current-chat-id]
  :<- [:acquisition]
  (fn [[chat-id acquisition]]
@@ -57,6 +57,12 @@
           (not attributed)
           (or (= flow-state (get persistence/referrer-state :accepted))
               (nil? flow-state))))))
+
+(re-frame/reg-sub
+ ::pending-reward
+ :<- [:acquisition]
+ (fn [{:keys [flow-state]}]
+   (= flow-state (get persistence/referrer-state :accepted))))
 
 (fx/defn go-to-invite
   {:events [::open-invite]}

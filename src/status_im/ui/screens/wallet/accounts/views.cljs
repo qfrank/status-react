@@ -18,6 +18,8 @@
             [status-im.keycard.login :as keycard.login])
   (:require-macros [status-im.utils.views :as views]))
 
+(def crypto-onramp-link "https://dap.ps/discover-dapps/categories/CRYPTO_ONRAMPS")
+
 (views/defview account-card [{:keys [name color address type] :as account} keycard? card-width]
   (views/letsubs [currency        [:wallet/currency]
                   portfolio-value [:account-portfolio-value address]
@@ -200,7 +202,7 @@
                (not buy-crypto-hidden))
       [react/view {:style {:padding-horizontal 8
                            :padding-top        24}}
-       [buy-crypto/banner {:on-open  println
+       [buy-crypto/banner {:on-open  #(re-frame/dispatch [:browser.ui/open-url crypto-onramp-link])
                            :on-close #(re-frame/dispatch [::wallet.events/hide-buy-crypto])}]])))
 
 (defn accounts-overview []

@@ -31,7 +31,8 @@
              "block" block-number
              "transactions-per-account" transactions-per-account
              "max-known-block" (:wallet/max-known-block db))
-  (when (>= block-number (:wallet/max-known-block db))
+  (when (and (>= block-number (:wallet/max-known-block db))
+             (> block-number (:ethereum/current-block db)))
     (fx/merge cofx
               (cond-> {}
                 (not historical?)

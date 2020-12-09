@@ -126,6 +126,35 @@
                        :params [(select-keys updated-browser [:browser-id :timestamp :name :dapp? :history :history-index])]
                        :on-success #()}]}))
 
+(fx/defn store-bookmark
+  {:events [:browser/store-bookmark]}
+  [{:keys [db]}
+   {:keys [url] :as bookmark}]
+  {:db            (assoc-in db [:bookmarks/bookmarks url] bookmark)
+   ::json-rpc/call [{:method "browsers_storeBookmark"
+                     :params [bookmark]
+                     :on-success #()}]})
+
+(fx/defn update-bookmark
+  {:events [:browser/update-bookmark]}
+  [{:keys [db]}
+   {:keys [url] :as bookmark}]
+  {:db            (update-in db
+                             [:bookmarks/bookmarks url]
+                             merge bookmark)
+   ::json-rpc/call [{:method "browsers_updateBookmark"
+                     :params [url bookmark]
+                     :on-success #()}]})
+
+(fx/defn delete-bookmark
+  {:events [:browser/delete-bookmark]}
+  [{:keys [db]}
+   url]
+  {:db            (update db :bookmarks/bookmarks dissoc url)
+   ::json-rpc/call [{:method "browsers_deleteBookmark"
+                     :params [url]
+                     :on-success #()}]})
+
 (defn can-go-back? [{:keys [history-index]}]
   (pos? history-index))
 
@@ -416,21 +445,6 @@
 
       (= type constants/api-request)
       (browser.permissions/process-permission cofx dapp-name permission messageId params))))
-
-(defn filter-letters-numbers-and-replace-dot-on-dash
-  [^js value]
-  (let [cc (.charCodeAt value 0)]
-    (cond (or (and (> cc 96) (< cc 123))
-              (and (> cc 64) (< cc 91))
-              (and (> cc 47) (< cc 58)))
-          value
-          (= cc 46)
-          "-")))
-
-(fx/defn open-chat-from-browser
-  [cofx host]
-  (let [topic (string/lower-case (apply str (map filter-letters-numbers-and-replace-dot-on-dash host)))]
-    {:dispatch [:chat.ui/start-public-chat topic nil]}))
 
 (re-frame/reg-fx
  :browser/resolve-ens-content

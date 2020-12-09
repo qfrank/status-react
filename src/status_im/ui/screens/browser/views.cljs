@@ -10,7 +10,6 @@
             [status-im.ui.components.icons.vector-icons :as icons]
             [status-im.ui.components.react :as react]
             [status-im.ui.components.styles :as components.styles]
-            [status-im.ui.components.topbar :as topbar]
             [status-im.ui.components.tooltip.views :as tooltip]
             [status-im.ui.components.webview :as components.webview]
             [status-im.ui.screens.browser.accounts :as accounts]
@@ -22,7 +21,9 @@
             [status-im.utils.js-resources :as js-res]
             [status-im.utils.contenthash :as contenthash]
             [status-im.ui.components.permissions :as components.permissions]
-            [quo.core :as quo])
+            [quo.core :as quo]
+            [status-im.ui.screens.wallet.components.views :as components]
+            [status-im.ui.screens.browser.options.views :as options])
   (:require-macros [status-im.utils.views :as views]))
 
 (defn toolbar-content [url url-original {:keys [secure?]} url-editing? unsafe?]
@@ -51,19 +52,6 @@
                                    :accessibility-label :refresh-page-button}
         [icons/icon :main-icons/refresh]])]))
 
-(defn toolbar [error? url url-original browser browser-id url-editing? unsafe?]
-  [topbar/topbar
-   {:navigation  {:icon     :main-icons/close
-                  :on-press (fn []
-                              (debounce/clear :browser/navigation-state-changed)
-                              (re-frame/dispatch [:navigate-back])
-                              (when error?
-                                (re-frame/dispatch [:browser.ui/remove-browser-pressed browser-id])))}
-    :title-align :left
-    :title-component
-    [react/view {:flex 1}
-     [toolbar-content url url-original browser url-editing? unsafe?]]}])
-
 (defn- web-view-error [_ _ desc]
   (reagent/as-element
    [react/view styles/web-view-error
@@ -74,13 +62,16 @@
     [react/text {:style styles/web-view-error-text}
      (str desc)]]))
 
-(views/defview navigation [url can-go-back? can-go-forward? dapps-account]
-  (views/letsubs [height [:dimensions/window-height]
-                  accounts [:accounts-without-watch-only]]
+(views/defview navigation [url can-go-back? can-go-forward? dapps-account empty-tab browser-id]
+  (views/letsubs [accounts [:accounts-without-watch-only]]
     [react/view (styles/navbar)
-     [react/touchable-highlight {:on-press            #(re-frame/dispatch [:browser.ui/previous-page-button-pressed])
-                                 :disabled            (not can-go-back?)
-                                 :style               (when-not can-go-back? styles/disabled-button)
+     [react/touchable-highlight {:on-press            #(if can-go-back?
+                                                         (re-frame/dispatch [:browser.ui/previous-page-button-pressed])
+                                                         (do
+                                                           (re-frame/dispatch [:browser.ui/remove-browser-pressed browser-id])
+                                                           (re-frame/dispatch [:navigate-to :empty-tab])))
+                                 :disabled            empty-tab
+                                 :style               (when empty-tab styles/disabled-button)
                                  :accessibility-label :previous-page-button}
       [react/view
        [icons/icon :main-icons/arrow-left]]]
@@ -91,19 +82,27 @@
       [react/view
        [icons/icon :main-icons/arrow-right]]]
      [react/touchable-highlight
-      {:on-press #(browser/share-link url)
-       :accessibility-label :modal-share-link-button}
-      [icons/icon :main-icons/share]]
-     [react/touchable-highlight
       {:accessibility-label :select-account
        :on-press            #(re-frame/dispatch [:bottom-sheet/show-sheet
-                                                 {:content        (accounts/accounts-list accounts dapps-account)
-                                                  :content-height (/ height 2)}])}
+                                                 {:content (accounts/accounts-list accounts dapps-account)}])}
       [chat-icon/custom-icon-view-list (:name dapps-account) (:color dapps-account) 32]]
+
      [react/touchable-highlight
-      {:on-press #(re-frame/dispatch [:browser.ui/open-modal-chat-button-pressed (http/url-host url)])
-       :accessibility-label :modal-chat-button}
-      [icons/icon :main-icons/message]]]))
+      {:on-press #(re-frame/dispatch [:navigate-to :browser-tabs])
+       :accessibility-label :browser-open-tabs}
+      [icons/icon :main-icons/tabs]]
+
+     [react/touchable-highlight
+      {:on-press #(when-not empty-tab
+                    (re-frame/dispatch
+                     [:bottom-sheet/show-sheet
+                      {:content (options/browser-options
+                                 url
+                                 dapps-account
+                                 empty-tab)}]))
+       :style               (when empty-tab styles/disabled-button)
+       :accessibility-label :browser-options}
+      [icons/icon :main-icons/more]]]))
 
 (def resources-to-permissions-map {"android.webkit.resource.VIDEO_CAPTURE" :camera
                                    "android.webkit.resource.AUDIO_CAPTURE" :record-audio})
@@ -197,7 +196,7 @@
         :on-load                                    #(re-frame/dispatch [:browser/loading-started])
         :on-error                                   #(re-frame/dispatch [:browser/error-occured])
         :injected-java-script-before-content-loaded (js-res/ethereum-provider (str network-id))}])]
-   [navigation url-original can-go-back? can-go-forward? dapps-account]
+   [navigation url-original can-go-back? can-go-forward? dapps-account false browser-id]
    [permissions.views/permissions-panel [(:dapp? browser) (:dapp browser) dapps-account] show-permission]
    (when show-tooltip
      [tooltip/bottom-tooltip-info
@@ -217,7 +216,8 @@
           can-go-forward? (browser/can-go-forward? browser)
           url-original    (browser/get-current-url browser)]
       [react/view {:style styles/browser}
-       [toolbar error? url url-original browser browser-id url-editing? unsafe?]
+       [toolbar-content url url-original browser url-editing? unsafe?]
+       [components/separator-dark]
        [react/view
         (when loading?
           [connectivity/loading-indicator window-width])]
